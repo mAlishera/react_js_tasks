@@ -1,4 +1,4 @@
-// http://jsbin.com/pizowob/edit?html,js,output
+// http://jsbin.com/wezocenici/edit?html,js,output
 
 const DOM = React.DOM;
 
@@ -13,28 +13,31 @@ const Image = (props) => (
   )
 );
 
-const TextBox = ({ string }) => (
-  DOM.span(null, string || 'default text')
+const TextBox = (props) => (
+  DOM.span({}, props.children || 'default text')
 );
 
 const BlogItem = (props) => (
   DOM.div(
     { },
     React.createElement(Image, {src: props.src}),
-    React.createElement(TextBox, {string: props.text}),
+    React.createElement(TextBox, {}, props.text),
   )
 );
 
 const blogs = [
   {
+    id: 0,
     image: 'https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif',
     text: 'text 1'
   },
   {
+    id: 1,
     image: 'https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif',
     text: 'text 2'
   },
   {
+    id: 2,
     image: 'https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif',
     text: 'text 3'
   }
@@ -45,8 +48,8 @@ const BlogList = ( { blogs } ) => (
     { },
     _.map(
       blogs,
-      (blog, key) => (
-        React.createElement(BlogItem, { src: blog.image, text: blog.text })
+      (blog) => (
+        React.createElement(BlogItem, { src: blog.image, text: blog.text, key: blog.id })
       )
     )
   )

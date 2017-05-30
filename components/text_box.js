@@ -1,3 +1,3 @@
-const TextBox = ({ string }) => (
-  DOM.span(null, string || 'default text')
+const TextBox = (props) => (
+  DOM.span({}, props.children || 'default text')
 );

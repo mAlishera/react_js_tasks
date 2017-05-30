@@ -3,8 +3,8 @@ const BlogList = ( { blogs } ) => (
     { },
     _.map(
       blogs,
-      (blog, key) => (
-        React.createElement(BlogItem, { src: blog.image, text: blog.text })
+      (blog) => (
+        React.createElement(BlogItem, { src: blog.image, text: blog.text, key: blog.id })
       )
     )
   )
