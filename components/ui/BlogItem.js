@@ -1,11 +1,11 @@
-const BlogItem = ({post}) => (
+const BlogItem = ({post, incrementLikes}) => (
   DOM.div(
     { },
     React.createElement(Image, {src: post.image.src}),
     React.createElement(TextBox, {}, post.text),
     React.createElement(Meta, post.meta),
     React.createElement(Like,
- { count: post.meta.likes })
+ { count: post.meta.likes, postId: post.id, incrementLikes: incrementLikes })
   )
 );
 

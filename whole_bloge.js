@@ -1,134 +1,9 @@
-// http://jsbin.com/wezocenici/edit?html,js,output
-// http://jsbin.com/yiresin/edit?js,console,output#J:L137
+// lesson_one - http://jsbin.com/wezocenici/edit?html,js,output
+// lesson_two - http://jsbin.com/yiresin/edit?js,console,output#J:L137
+// lesson_tree - http://jsbin.com/bozasij/edit?html,js,console,output
 
 const {DOM, PropTypes} = React;
 const {bind} = _;
-
-const BlogItem = ({post}) => (
-  DOM.div(
-    { },
-    React.createElement(Image, {src: post.image.src}),
-    React.createElement(TextBox, {}, post.text),
-    React.createElement(Meta, post.meta),
-    React.createElement(Like,
- { count: post.meta.likes })
-  )
-);
-
-BlogItem.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    text: PropTypes.string,
-    meta: PropTypes.shape({
-      author: PropTypes.string,
-      createdAt: PropTypes.string,
-      updatedAt: PropTypes.string,
-      likes: PropTypes.number
-    }),
-    image: PropTypes.shape(Image.propTypes)
-  })
-}
-
-class BlogList extends React.Component {
-  render() {
-    const { posts } = this.props;
-
-    return DOM.div(
-      null,
-      _.map(
-        posts,
-        (post) => (
-          React.createElement(BlogItem, { post: post, key: post.id })
-        )
-      )
-    )
-  }
-}
-
-const Image = ({src, width, height, alt}) => (
-  React.createElement(
-    'img',
-    { src, width, height, alt }
-  )
-);
-
-Image.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string
-}
-
-Image.defaultProps = {
-  src: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png',
-  alt: 'alt text',
-  width: '200px',
-  height: '200px'
-}
-
-class Like extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { count: props.count };
-    this.handleClick = bind(this.handleClick, this);
-  }
-
-  handleClick(e) {
-    this.setState({ count: this.state.count + 1});
-  }
-
-  render() {
-    return (
-      <div className='count'>
-        <p>Like: {this.state.count}</p>
-        <button onClick={this.handleClick}>+</button>
-      </div>
-    )
-  }
-}
-
-Like.propTypes = {
-  count: PropTypes.number
-}
-
-Like.defaultProps = {
-  count: 0
-}
-
-const Meta = ({author, createdAt, updatedAt}) => (
-  <div className='meta'>
-    <ul>
-      <li>author: { author }</li>
-      <li>created at: { createdAt }</li>
-      <li>updated at: { updatedAt }</li>
-    </ul>
-  </div>
-);
-
-Meta.propTypes = {
-  author: React.PropTypes.string,
-  createdAt: React.PropTypes.string,
-  updatedAt: React.PropTypes.string
-};
-
-Meta.defaultProps = {
-  author: "author",
-  createdAt: "2017-05-06",
-  updatedAt: "2017-05-06"
-};
-
-const TextBox = (props) => (
-  DOM.span({}, props.children )
-);
-
-TextBox.propTypes = {
-  children: PropTypes.string.isRequired
-}
-
-TextBox.defaultProps = {
-  children: 'default text'
-}
 
 const posts = [
   {
@@ -178,21 +53,183 @@ const posts = [
 
 class BlogPage extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = { posts };
+    this.incrementLikes = this.incrementLikes.bind(this);
+  }
+
+  incrementLikes(postId) {
+    this.setState((prevState, props) =>
+      (
+        {
+          posts: _.map(
+            this.state.posts,
+            (post, key) => ((post.id === postId) ? {...post, likes: ++post.meta.likes} : post)
+          )
+        }
+      )
+    );
   }
 
   render() {
 
     return DOM.div(
       { },
-      React.createElement(BlogList, { posts: this.state.posts })
+      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes }),
+      React.createElement(PieChart, { columns:
+        _.map(
+          this.state.posts,
+          (post, key) => (
+            [post.meta.author, post.meta.likes]
+          )
+        )
+      })
+    );
+  }
+}
+
+const BlogItem = ({post, incrementLikes}) => (
+  DOM.div(
+    { },
+    React.createElement(Image, {src: post.image.src}),
+    React.createElement(TextBox, {}, post.text),
+    React.createElement(Meta, post.meta),
+    React.createElement(Like,
+ { count: post.meta.likes, postId: post.id, incrementLikes: incrementLikes })
+  )
+);
+
+BlogItem.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    text: PropTypes.string,
+    meta: PropTypes.shape({
+      author: PropTypes.string,
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string,
+      likes: PropTypes.number
+    }),
+    image: PropTypes.shape(Image.propTypes)
+  })
+}
+
+class BlogList extends React.Component {
+  render() {
+    const { posts } = this.props;
+    const { incrementLikes } = this.props;
+
+    return DOM.div(
+      null,
+      _.map(
+        posts,
+        (post) => (
+          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: incrementLikes })
+        )
+      )
+    )
+  }
+}
+
+const Image = ({src, width, height, alt}) => (
+  React.createElement(
+    'img',
+    { src, width, height, alt }
+  )
+);
+
+Image.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string
+}
+
+Image.defaultProps = {
+  src: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png',
+  alt: 'alt text',
+  width: '200px',
+  height: '200px'
+}
+
+const Like = ({postId, count, incrementLikes}) => (
+  <div className='count'>
+    <p>Like: {count}</p>
+    <button onClick={() => incrementLikes(postId)}>+</button>
+  </div>
+)
+
+Like.propTypes = {
+  count: PropTypes.number
+}
+
+Like.defaultProps = {
+  count: 0
+}
+
+const Meta = ({author, createdAt, updatedAt}) => (
+  <div className='meta'>
+    <ul>
+      <li>author: { author }</li>
+      <li>created at: { createdAt }</li>
+      <li>updated at: { updatedAt }</li>
+    </ul>
+  </div>
+);
+
+Meta.propTypes = {
+  author: React.PropTypes.string,
+  createdAt: React.PropTypes.string,
+  updatedAt: React.PropTypes.string
+};
+
+Meta.defaultProps = {
+  author: "author",
+  createdAt: "2017-05-06",
+  updatedAt: "2017-05-06"
+};
+
+const TextBox = (props) => (
+  DOM.span({}, props.children )
+);
+
+TextBox.propTypes = {
+  children: PropTypes.string.isRequired
+}
+
+TextBox.defaultProps = {
+  children: 'default text'
+}
+
+class PieChart extends React.Component {
+  componentDidMount() {
+    this.chart = c3.generate(
+      {
+        bindto: ReactDOM.findDOMNode(this.refs.chart),
+        data: {
+          columns: this.props.columns,
+          type: 'pie'
+        }
+      }
+    )
+  }
+
+  componentWillUnmount() {
+    this.chart.destroy();
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.chart.load({columns: newProps.columns});
+  }
+
+  render() {
+    return (
+      <div ref="chart" />
     );
   }
 }
 
 ReactDOM.render(
-  React.createElement(BlogList, { posts }),
+  React.createElement(BlogPage, { posts }),
   document.getElementById('app')
 );
