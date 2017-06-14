@@ -56,7 +56,7 @@ class BlogPage extends React.Component {
   constructor() {
     super();
     this.state = { posts };
-    this.incrementLikes = this.incrementLikes.bind(this);
+    incrementLikes = bind(this.incrementLikes, this);
   }
 
   incrementLikes(postId) {
@@ -76,7 +76,7 @@ class BlogPage extends React.Component {
 
     return DOM.div(
       { },
-      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes }),
+      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: incrementLikes }),
       React.createElement(PieChart, { columns:
         _.map(
           this.state.posts,
@@ -96,7 +96,7 @@ const BlogItem = ({post, incrementLikes}) => (
     React.createElement(TextBox, {}, post.text),
     React.createElement(Meta, post.meta),
     React.createElement(Like,
- { count: post.meta.likes, postId: post.id, incrementLikes: incrementLikes })
+      { count: post.meta.likes, postId: post.id, incrementLikes })
   )
 );
 
@@ -124,7 +124,7 @@ class BlogList extends React.Component {
       _.map(
         posts,
         (post) => (
-          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: incrementLikes })
+          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: () => incrementLikes(post.id) })
         )
       )
     )

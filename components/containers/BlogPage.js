@@ -3,7 +3,7 @@ class BlogPage extends React.Component {
   constructor() {
     super();
     this.state = { posts };
-    this.incrementLikes = this.incrementLikes.bind(this);
+    incrementLikes = bind(this.incrementLikes, this);
   }
 
   incrementLikes(postId) {
@@ -23,7 +23,7 @@ class BlogPage extends React.Component {
 
     return DOM.div(
       { },
-      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes }),
+      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: incrementLikes }),
       React.createElement(PieChart, { columns:
         _.map(
           this.state.posts,

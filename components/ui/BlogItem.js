@@ -5,7 +5,7 @@ const BlogItem = ({post, incrementLikes}) => (
     React.createElement(TextBox, {}, post.text),
     React.createElement(Meta, post.meta),
     React.createElement(Like,
- { count: post.meta.likes, postId: post.id, incrementLikes: incrementLikes })
+      { count: post.meta.likes, postId: post.id, incrementLikes })
   )
 );
 

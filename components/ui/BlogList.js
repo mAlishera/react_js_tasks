@@ -8,7 +8,7 @@ class BlogList extends React.Component {
       _.map(
         posts,
         (post) => (
-          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: incrementLikes})
+          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: () => incrementLikes(post.id) })
         )
       )
     )
