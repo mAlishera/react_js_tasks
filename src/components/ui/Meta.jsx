@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 const Meta = ({author, createdAt, updatedAt}) => (
   <div className='meta'>
     <ul>
@@ -19,3 +22,5 @@ Meta.defaultProps = {
   createdAt: "2017-05-06",
   updatedAt: "2017-05-06"
 };
+
+export default Meta;

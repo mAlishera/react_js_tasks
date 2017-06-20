@@ -1,3 +1,6 @@
+import React, { DOM } from 'react';
+import PropTypes from 'prop-types';
+
 const TextBox = (props) => (
   DOM.span({}, props.children )
 );
@@ -9,3 +12,5 @@ TextBox.propTypes = {
 TextBox.defaultProps = {
   children: 'default text'
 }
+
+export default TextBox;

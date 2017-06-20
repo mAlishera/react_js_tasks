@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 const Image = ({src, width, height, alt}) => (
   React.createElement(
     'img',
@@ -18,3 +21,5 @@ Image.defaultProps = {
   width: '200px',
   height: '200px'
 }
+
+export default Image;

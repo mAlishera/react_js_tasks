@@ -1,3 +1,10 @@
+import React from 'react';
+import _ from 'lodash';
+
+import posts from 'constants/posts';
+import BlogList from '../ui/BlogList';
+import PieChart from '../ui/PieChart';
+
 class BlogPage extends React.Component {
 
   constructor() {
@@ -35,3 +42,5 @@ class BlogPage extends React.Component {
     );
   }
 }
+
+export default BlogPage;
