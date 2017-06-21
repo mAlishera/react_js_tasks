@@ -1,4 +1,4 @@
-import React, { DOM } from 'react';
+import { DOM } from 'react';
 import PropTypes from 'prop-types';
 
 const TextBox = (props) => (
@@ -7,10 +7,10 @@ const TextBox = (props) => (
 
 TextBox.propTypes = {
   children: PropTypes.string.isRequired
-}
+};
 
 TextBox.defaultProps = {
   children: 'default text'
-}
+};
 
 export default TextBox;

@@ -6,14 +6,14 @@ const Like = ({postId, count, incrementLikes}) => (
     <p>Like: {count}</p>
     <button onClick={() => incrementLikes(postId)}>+</button>
   </div>
-)
+);
 
 Like.propTypes = {
   count: PropTypes.number
-}
+};
 
 Like.defaultProps = {
   count: 0
-}
+};
 
 export default Like;

@@ -2,7 +2,6 @@ import React, { DOM } from 'react';
 import _ from 'lodash';
 
 import BlogItem from './BlogItem';
-import PropTypes from 'prop-types';
 
 class BlogList extends React.Component {
   render() {
@@ -17,7 +16,7 @@ class BlogList extends React.Component {
           React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: () => incrementLikes(post.id) })
         )
       )
-    )
+    );
   }
 }
 

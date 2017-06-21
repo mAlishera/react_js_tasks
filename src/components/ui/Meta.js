@@ -18,9 +18,9 @@ Meta.propTypes = {
 };
 
 Meta.defaultProps = {
-  author: "author",
-  createdAt: "2017-05-06",
-  updatedAt: "2017-05-06"
+  author: 'author',
+  createdAt: '2017-05-06',
+  updatedAt: '2017-05-06'
 };
 
 export default Meta;

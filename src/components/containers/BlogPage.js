@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { DOM } from 'react';
 import _ from 'lodash';
 
 import posts from 'constants/posts';
 import BlogList from '../ui/BlogList';
-import PieChart from '../ui/PieChart';
 
 class BlogPage extends React.Component {
 
   constructor() {
     super();
     this.state = { posts };
-    incrementLikes = bind(this.incrementLikes, this);
+    this.incrementLikes = this.incrementLikes.bind(this);
   }
 
   incrementLikes(postId) {
@@ -30,15 +29,7 @@ class BlogPage extends React.Component {
 
     return DOM.div(
       { },
-      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: incrementLikes }),
-      React.createElement(PieChart, { columns:
-        _.map(
-          this.state.posts,
-          (post, key) => (
-            [post.meta.author, post.meta.likes]
-          )
-        )
-      })
+      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes }),
     );
   }
 }
