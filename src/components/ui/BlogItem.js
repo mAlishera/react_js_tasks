@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Image from './Image';
 import TextBox from './TextBox';
-import Meta from './Meta.js';
-import Like from './Like';
+import Meta from './Meta.jsx';
+import Like from './Like.jsx';
 
 const BlogItem = ({post, incrementLikes}) => (
   DOM.div(

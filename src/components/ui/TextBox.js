@@ -2,7 +2,7 @@ import { DOM } from 'react';
 import PropTypes from 'prop-types';
 
 const TextBox = (props) => (
-  DOM.span({}, props.children )
+  DOM.span({}, props.children)
 );
 
 TextBox.propTypes = {

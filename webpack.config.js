@@ -17,12 +17,21 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
-      }
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?importLoaders=1'
+        ]
+      },
+      { test: /\.(eot|png|ttf|svg|woff|woff2)$/, loader: 'url-loader'}
     ]
   },
+
   resolve: {
     extensions: [".js", ".jsx"],
     modules: [

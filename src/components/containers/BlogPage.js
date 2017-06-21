@@ -1,6 +1,4 @@
 import React, { DOM } from 'react';
-// import _ from 'lodash';
-// import { bind } from 'lodash';
 
 import posts from 'constants/posts';
 import BlogList from '../ui/BlogList';
