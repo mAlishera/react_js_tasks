@@ -1,4 +1,5 @@
 import React, { DOM } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import BlogItem from './BlogItem';
@@ -13,11 +14,16 @@ class BlogList extends React.Component {
       _.map(
         posts,
         (post) => (
-          React.createElement(BlogItem, { post: post, key: post.id, incrementLikes: () => incrementLikes(post.id) })
+          React.createElement(BlogItem, { post, key: post.id, incrementLikes: () => incrementLikes(post.id) })
         )
       )
     );
   }
 }
+
+BlogList.propTypes = {
+  posts: PropTypes.array,
+  incrementLikes: PropTypes.func
+};
 
 export default BlogList;

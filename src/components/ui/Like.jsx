@@ -11,7 +11,8 @@ const Like = ({postId, count, incrementLikes}) => (
 
 Like.propTypes = {
   count: PropTypes.number,
-  postId: PropTypes.number
+  postId: PropTypes.number,
+  incrementLikes: PropTypes.func
 };
 
 Like.defaultProps = {

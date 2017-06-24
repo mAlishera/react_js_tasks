@@ -8,19 +8,22 @@ import App from './App';
 
 const rootElement = document.getElementById('app');
 
-const render = (Component) => {
-  ReactDOM.render(
-    <AppContainer >
-      <App />
-    </AppContainer>,
-    rootElement
-  );
-};
-
-render(App);
+ReactDOM.render(
+  <AppContainer>
+    <App />
+  </AppContainer>,
+  rootElement
+);
 
 if (module.hot) {
   module.hot.accept('./App', () => {
-    render(App);
+    const NextApp = require('./App').default;
+
+    ReactDOM.render(
+      <AppContainer>
+        <NextApp />
+      </AppContainer>,
+      rootElement
+    );
   });
 }
