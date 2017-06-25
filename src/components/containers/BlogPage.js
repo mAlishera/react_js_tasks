@@ -1,34 +1,32 @@
 import React, { DOM } from 'react';
 
+import _ from 'lodash';
+
 import posts from 'constants/posts';
 import BlogList from '../ui/BlogList';
 
 class BlogPage extends React.Component {
-
   constructor() {
     super();
     this.state = { posts };
-    this.incrementLikes = this.incrementLikes.bind(this);
+    this.incrementLikes = _.bind(this.incrementLikes, this);
   }
 
   incrementLikes(postId) {
-    this.setState((prevState, props) =>
-      (
-        {
-          posts: _.map(
-            this.state.posts,
-            (post, key) => ((post.id === postId) ? {...post, likes: ++post.meta.likes} : post)
-          )
-        }
-      )
+    this.setState((prevState) =>
+      ({
+        posts: _.map(
+          prevState.posts, //prevState, так как this.state может быть модифицирован до вызова этой функции
+          (post) => ((post.id === postId) ? {...post, likes: ++post.meta.likes} : post)
+        )
+      })
     );
   }
 
   render() {
-
     return DOM.div(
-      { },
-      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes }),
+      null, //можно не создавать пустой объект (операция создания объекта дороже)
+      React.createElement(BlogList, { posts: this.state.posts, incrementLikes: this.incrementLikes })
     );
   }
 }
