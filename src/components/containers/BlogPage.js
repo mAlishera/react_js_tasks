@@ -1,15 +1,28 @@
 import React, { DOM } from 'react';
 
+import request from 'superagent';
+
 import _ from 'lodash';
 
-import posts from 'constants/posts';
 import BlogList from '../ui/BlogList';
 
 class BlogPage extends React.Component {
   constructor() {
     super();
-    this.state = { posts };
+    this.state = { posts: [] };
     this.incrementLikes = _.bind(this.incrementLikes, this);
+  }
+
+  componentDidMount() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    request.get(
+      'http://localhost:3001/',
+      {},
+      (err, res) => this.setState({ posts: res.body})
+    );
   }
 
   incrementLikes(postId) {
