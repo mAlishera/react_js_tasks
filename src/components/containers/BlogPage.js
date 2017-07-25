@@ -6,6 +6,8 @@ import _ from 'lodash';
 
 import BlogList from '../ui/BlogList';
 
+import { apiPath } from 'helpers/routes/api';
+
 class BlogPage extends React.Component {
   constructor() {
     super();
@@ -19,7 +21,7 @@ class BlogPage extends React.Component {
 
   fetchPosts() {
     request.get(
-      'http://localhost:3001/',
+      `${apiPath}`,
       {},
       (err, res) => this.setState({ posts: res.body})
     );
