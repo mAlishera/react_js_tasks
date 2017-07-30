@@ -1,20 +1,20 @@
-import React, { DOM } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import Image from './Image';
-import TextBox from './TextBox';
+import { Item, Image } from 'semantic-ui-react';
+import Link from '../elements/Link';
+import { postsPath } from 'helpers/routes/index';
 import Meta from './Meta.jsx';
 import Like from './Like.jsx';
 
 const BlogItem = ({post, incrementLikes}) => (
-  DOM.div(
-    { },
-    React.createElement(Image, {src: post.image.src}),
-    React.createElement(TextBox, {}, post.text),
-    React.createElement(Meta, post.meta),
-    React.createElement(Like,
-      { count: post.meta.likes, postId: post.id, incrementLikes })
-  )
+  <Item>
+    <Image {...post.image} />
+    <Item.Content>
+      <Link to={postsPath(post.id)}>{post.text}</Link>
+      <Meta {...post.meta} />
+      <Like postId={post.id} count={post.meta.likes} incrementLikes={incrementLikes} />
+    </Item.Content>
+  </Item>
 );
 
 BlogItem.propTypes = {
@@ -28,7 +28,8 @@ BlogItem.propTypes = {
       likes: PropTypes.number
     }),
     image: PropTypes.shape(Image.propTypes)
-  })
+  }),
+  incrementLikes: React.PropTypes.func
 };
 
 export default BlogItem;
