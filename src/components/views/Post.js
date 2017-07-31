@@ -4,17 +4,14 @@ import PropTypes from 'prop-types';
 import BlogItem from '../ui/BlogItem';
 import { Item } from 'semantic-ui-react';
 
-// const Post = ({item, like}) => item ? React.createElement(
-//   BlogItem, {...item, like }) : false;
-
-const Post = ({ item }) => (
+const Post = ({ post }) => (
   <Item.Group>
-    {item && (<BlogItem item={item}/>)}
+    {post && (<BlogItem post={post}/>)}
   </Item.Group>
 );
 
 Post.propTypes = {
-  item: PropTypes.object,
+  post: PropTypes.object,
 };
 
 export default Post;

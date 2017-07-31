@@ -2,9 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {  Switch, matchPath, Route } from 'react-router-dom';
-
-import { ConnectedRouter } from 'react-router-redux';
+import {  Switch, matchPath, Route, Router } from 'react-router-dom';
 
 import history from 'helpers/history';
 import { Provider } from 'react-redux';
@@ -38,17 +36,20 @@ historyCb(window.location);
 
 const App = () => (
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <Router history={history}>
       <MainLayout>
         <Switch>
           {
-            routes.map((route, i) => (
-              <Route key={i} path={route.path} component={route.component} prepareData={route.prepareData} />
-            ))
+            _.map(
+              routes,
+              (route, i) => (
+                <Route key={i} exact={route.exact} path={route.path} component={route.component} prepareData={route.prepareData} />
+              )
+            )
           }
         </Switch>
       </MainLayout>
-    </ConnectedRouter>
+    </Router>
   </Provider>
 );
 
