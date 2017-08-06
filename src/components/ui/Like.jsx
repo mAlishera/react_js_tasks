@@ -1,11 +1,12 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
-const Like = ({postId, count, incrementLikes}) => (
+const Like = () => (
   <div className='count'>
-    <p>Like: {count}</p>
-    <Button onClick={() => incrementLikes(postId)}>+</Button>
+    <p>Like: 1</p>
+    <Button onClick={() => console.log("+Like")}>+</Button>
   </div>
 );
 
