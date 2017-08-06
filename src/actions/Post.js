@@ -1,37 +1,19 @@
-import request from 'superagent';
+import * as post from 'constants/actionTypes/PostActionTypes';
 
-import { API_ROOT } from 'constants/API';
-import * as types from 'constants/actionTypes/PostActionTypes';
+import { API_CALL } from 'middleware/API';
 
-const requestPost = (id) => ({
-  type: types.FETCH_POST_REQUEST,
-  id
-});
-
-const errorPost = () => ({
-  type: types.FETCH_POST_ERROR
-});
-
-const receivePost = (response) => ({
-  type: types.FETCH_POST_SUCCESS,
-  response
-});
-
-export const likePost = (post) => (
-  {
-    post,
-    type: types.POST_LIKE
-  }
-);
 
 export function fetchPost(id) {
-  return (dispatch) => {
-    dispatch(requestPost(id));
-
-    return request
-      .get(`${API_ROOT}/posts/${id}`)
-      .end((err, response) => {
-        err ? dispatch(errorPost()) : dispatch(receivePost(response.body));
-      });
+  return {
+    [API_CALL]: {
+      endpoint: `/posts/${id}`,
+      method: 'GET',
+      query: {},
+      types: [
+        post.FETCH_POST_REQUEST,
+        post.FETCH_POST_SUCCESS,
+        post.FETCH_POST_ERROR
+      ]
+    }
   };
 }
